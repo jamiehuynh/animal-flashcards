@@ -84,6 +84,14 @@
       letter-spacing: 0.04em;
     }
 
+    .chinese-name {
+      font-size: clamp(1.5rem, 7vw, 3.5rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 0.1em;
+    }
+
     .speak-hint {
       font-size: clamp(0.75rem, 2.5vw, 1rem);
       color: rgba(255,255,255,0.65);
@@ -169,6 +177,7 @@
   <div class="card" id="card" onclick="speak()">
     <div class="emoji" id="emoji"></div>
     <div class="animal-name" id="name"></div>
+    <div class="chinese-name" id="chinese"></div>
     <div class="speak-hint">Tap to hear!</div>
   </div>
 
@@ -185,26 +194,26 @@
 
   <script>
     const animals = [
-      { name: 'Dog',       emoji: '\uD83D\uDC36' },
-      { name: 'Cat',       emoji: '\uD83D\uDC31' },
-      { name: 'Elephant',  emoji: '\uD83D\uDC18' },
-      { name: 'Lion',      emoji: '\uD83E\uDD81' },
-      { name: 'Giraffe',   emoji: '\uD83E\uDD92' },
-      { name: 'Monkey',    emoji: '\uD83D\uDC12' },
-      { name: 'Penguin',   emoji: '\uD83D\uDC27' },
-      { name: 'Duck',      emoji: '\uD83E\uDD86' },
-      { name: 'Rabbit',    emoji: '\uD83D\uDC30' },
-      { name: 'Bear',      emoji: '\uD83D\uDC3B' },
-      { name: 'Frog',      emoji: '\uD83D\uDC38' },
-      { name: 'Fish',      emoji: '\uD83D\uDC1F' },
-      { name: 'Horse',     emoji: '\uD83D\uDC34' },
-      { name: 'Cow',       emoji: '\uD83D\uDC04' },
-      { name: 'Pig',       emoji: '\uD83D\uDC37' },
-      { name: 'Sheep',     emoji: '\uD83D\uDC11' },
-      { name: 'Tiger',     emoji: '\uD83D\uDC2F' },
-      { name: 'Zebra',     emoji: '\uD83E\uDD93' },
-      { name: 'Owl',       emoji: '\uD83E\uDD89' },
-      { name: 'Butterfly', emoji: '\uD83E\uDD8B' },
+      { name: 'Dog',       chinese: '狗',   emoji: '\uD83D\uDC36' },
+      { name: 'Cat',       chinese: '猫',   emoji: '\uD83D\uDC31' },
+      { name: 'Elephant',  chinese: '大象', emoji: '\uD83D\uDC18' },
+      { name: 'Lion',      chinese: '狮子', emoji: '\uD83E\uDD81' },
+      { name: 'Giraffe',   chinese: '长颈鹿', emoji: '\uD83E\uDD92' },
+      { name: 'Monkey',    chinese: '猴子', emoji: '\uD83D\uDC12' },
+      { name: 'Penguin',   chinese: '企鹅', emoji: '\uD83D\uDC27' },
+      { name: 'Duck',      chinese: '鸭子', emoji: '\uD83E\uDD86' },
+      { name: 'Rabbit',    chinese: '兔子', emoji: '\uD83D\uDC30' },
+      { name: 'Bear',      chinese: '熊',   emoji: '\uD83D\uDC3B' },
+      { name: 'Frog',      chinese: '青蛙', emoji: '\uD83D\uDC38' },
+      { name: 'Fish',      chinese: '鱼',   emoji: '\uD83D\uDC1F' },
+      { name: 'Horse',     chinese: '马',   emoji: '\uD83D\uDC34' },
+      { name: 'Cow',       chinese: '牛',   emoji: '\uD83D\uDC04' },
+      { name: 'Pig',       chinese: '猪',   emoji: '\uD83D\uDC37' },
+      { name: 'Sheep',     chinese: '羊',   emoji: '\uD83D\uDC11' },
+      { name: 'Tiger',     chinese: '老虎', emoji: '\uD83D\uDC2F' },
+      { name: 'Zebra',     chinese: '斑马', emoji: '\uD83E\uDD93' },
+      { name: 'Owl',       chinese: '猫头鹰', emoji: '\uD83E\uDD89' },
+      { name: 'Butterfly', chinese: '蝴蝶', emoji: '\uD83E\uDD8B' },
     ];
 
     const gradients = [
@@ -226,6 +235,7 @@
 
     const emojiEl    = document.getElementById('emoji');
     const nameEl     = document.getElementById('name');
+    const chineseEl  = document.getElementById('chinese');
     const counterEl  = document.getElementById('counter');
     const cardEl     = document.getElementById('card');
     const correctEl  = document.getElementById('score-correct');
@@ -233,8 +243,9 @@
 
     function render(skipAnim) {
       const a = animals[current];
-      emojiEl.textContent = a.emoji;
-      nameEl.textContent  = a.name;
+      emojiEl.textContent   = a.emoji;
+      nameEl.textContent    = a.name;
+      chineseEl.textContent = a.chinese;
       counterEl.textContent = `${current + 1} / ${animals.length}`;
       document.body.style.background = gradients[current % gradients.length];
 
