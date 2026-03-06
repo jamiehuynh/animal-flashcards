@@ -162,11 +162,32 @@
       background: rgba(255,255,255,0.4);
       transform: scale(0.95);
     }
+
+    .btn-home {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.9rem, 3.5vw, 1.3rem);
+      font-weight: 900;
+      text-decoration: none;
+      color: #fff;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 0.4em 1em;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: background 0.2s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-home:active {
+      background: rgba(255,255,255,0.4);
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
+    <a href="index.html" class="btn-home">🏠</a>
     <div class="counter" id="counter">1 / 20</div>
     <div class="score">
       <span class="score-correct">Correct: <span id="score-correct">0</span></span>

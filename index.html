@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animal World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      transition: background 0.6s ease;
+      user-select: none;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 2rem 1.5rem 1rem;
+      flex-shrink: 0;
+    }
+
+    .paw {
+      font-size: clamp(2.5rem, 12vw, 5rem);
+      line-height: 1;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.18));
+    }
+
+    .title-en {
+      font-size: clamp(2rem, 10vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.25);
+      letter-spacing: 0.04em;
+    }
+
+    .title-zh {
+      font-size: clamp(1.3rem, 6vw, 2.8rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 0.12em;
+    }
+
+    .tiles {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.5rem 1.5rem 2rem;
+    }
+
+    .tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+      min-height: 90px;
+      background: rgba(255,255,255,0.22);
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      transition: background 0.2s, transform 0.12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .tile:active {
+      background: rgba(255,255,255,0.35);
+      transform: scale(0.96);
+    }
+
+    .tile-emoji {
+      font-size: clamp(2rem, 10vw, 3.5rem);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .tile-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .tile-en {
+      font-size: clamp(1.3rem, 6vw, 2.2rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .tile-zh {
+      font-size: clamp(1rem, 4.5vw, 1.6rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.18);
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="paw">🐾</div>
+    <div class="title-en">Animal World</div>
+    <div class="title-zh">動物世界</div>
+  </header>
+
+  <div class="tiles">
+    <a href="flashcards.html" class="tile">
+      <div class="tile-emoji">🃏</div>
+      <div class="tile-labels">
+        <div class="tile-en">Flashcards</div>
+        <div class="tile-zh">閃卡</div>
+      </div>
+    </a>
+    <a href="quiz.html" class="tile">
+      <div class="tile-emoji">❓</div>
+      <div class="tile-labels">
+        <div class="tile-en">Quiz</div>
+        <div class="tile-zh">問答</div>
+      </div>
+    </a>
+    <a href="memory.html" class="tile">
+      <div class="tile-emoji">⭐</div>
+      <div class="tile-labels">
+        <div class="tile-en">Memory</div>
+        <div class="tile-zh">配對</div>
+      </div>
+    </a>
+  </div>
+
+  <script>
+    const gradients = [
+      'linear-gradient(135deg, #f97316, #fb923c)',
+      'linear-gradient(135deg, #ec4899, #f472b6)',
+      'linear-gradient(135deg, #8b5cf6, #a78bfa)',
+      'linear-gradient(135deg, #06b6d4, #22d3ee)',
+      'linear-gradient(135deg, #10b981, #34d399)',
+      'linear-gradient(135deg, #3b82f6, #60a5fa)',
+      'linear-gradient(135deg, #f59e0b, #fbbf24)',
+      'linear-gradient(135deg, #ef4444, #f87171)',
+      'linear-gradient(135deg, #84cc16, #a3e635)',
+      'linear-gradient(135deg, #14b8a6, #2dd4bf)',
+    ];
+
+    let gi = 0;
+    document.body.style.background = gradients[gi];
+
+    setInterval(() => {
+      gi = (gi + 1) % gradients.length;
+      document.body.style.background = gradients[gi];
+    }, 4000);
+  </script>
+</body>
+</html>
