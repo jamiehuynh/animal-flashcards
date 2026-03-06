@@ -276,9 +276,8 @@
 
     function loadVoice() {
       const voices = window.speechSynthesis.getVoices();
-      const zh = voices.filter(v => /zh[-_]CN|zh[-_]Hans|Mandarin|Tingting|Meijia/i.test(v.lang + ' ' + v.name));
-      // Prefer female-sounding names, then any zh-CN voice
-      const female = zh.find(v => /ting|mei|xiao|female/i.test(v.name));
+      const zh = voices.filter(v => /^zh/i.test(v.lang));
+      const female = zh.find(v => /ting|mei|xiao|sin|female/i.test(v.name));
       chineseVoice = female || zh[0] || null;
     }
 
