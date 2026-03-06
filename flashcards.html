@@ -276,9 +276,9 @@
     function speak() {
       if (!window.speechSynthesis) return;
       window.speechSynthesis.cancel();
-      const utt = new SpeechSynthesisUtterance(animals[current].name);
-      utt.lang = 'en-US';
-      utt.rate = 0.85;
+      const utt = new SpeechSynthesisUtterance(animals[current].chinese);
+      utt.lang = 'zh-CN';
+      utt.rate = 0.8;
       utt.pitch = 1.1;
       window.speechSynthesis.speak(utt);
     }
