@@ -272,6 +272,19 @@
       go(1);
     }
 
+    let chineseVoice = null;
+
+    function loadVoice() {
+      const voices = window.speechSynthesis.getVoices();
+      const zh = voices.filter(v => /zh[-_]CN|zh[-_]Hans|Mandarin|Tingting|Meijia/i.test(v.lang + ' ' + v.name));
+      // Prefer female-sounding names, then any zh-CN voice
+      const female = zh.find(v => /ting|mei|xiao|female/i.test(v.name));
+      chineseVoice = female || zh[0] || null;
+    }
+
+    window.speechSynthesis.onvoiceschanged = loadVoice;
+    loadVoice();
+
     function speak() {
       if (!window.speechSynthesis) return;
       window.speechSynthesis.cancel();
@@ -279,6 +292,7 @@
       utt.lang = 'zh-CN';
       utt.rate = 0.8;
       utt.pitch = 1.1;
+      if (chineseVoice) utt.voice = chineseVoice;
       window.speechSynthesis.speak(utt);
     }
 
