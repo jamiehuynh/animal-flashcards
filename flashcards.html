@@ -20,15 +20,34 @@
       user-select: none;
     }
 
-    .counter {
+    .top-bar {
       position: absolute;
       top: 1.2rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+
+    .counter {
       font-size: clamp(1rem, 4vw, 1.5rem);
       font-weight: 700;
       color: rgba(255,255,255,0.85);
       letter-spacing: 0.05em;
       text-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
+
+    .score {
+      display: flex;
+      gap: 1rem;
+      font-size: clamp(0.9rem, 3.5vw, 1.3rem);
+      font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .score-correct { color: #bbf7d0; }
+    .score-wrong   { color: #fecaca; }
 
     .card {
       display: flex;
@@ -74,29 +93,64 @@
 
     .nav {
       position: absolute;
-      bottom: 2rem;
+      bottom: 1.5rem;
       display: flex;
-      gap: 2rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .score-buttons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
     }
 
     .nav button {
       font-family: 'Nunito', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.2rem, 5vw, 2rem);
-      padding: 0.75em 2em;
       border: none;
       border-radius: 999px;
-      background: rgba(255,255,255,0.25);
-      color: #fff;
       cursor: pointer;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       transition: background 0.2s, transform 0.1s;
       -webkit-tap-highlight-color: transparent;
-      min-width: 7rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
 
-    .nav button:active {
+    .btn-correct {
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      padding: 0.6em 1.8em;
+      background: rgba(34,197,94,0.85);
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+
+    .btn-wrong {
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      padding: 0.6em 1.8em;
+      background: rgba(239,68,68,0.85);
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+
+    .btn-correct:active { background: rgba(34,197,94,1);   transform: scale(0.95); }
+    .btn-wrong:active   { background: rgba(239,68,68,1);   transform: scale(0.95); }
+
+    .btn-nav {
+      font-size: clamp(0.9rem, 3.5vw, 1.3rem);
+      padding: 0.5em 1.5em;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      backdrop-filter: blur(6px);
+      min-width: 5rem;
+    }
+
+    .btn-nav:active {
       background: rgba(255,255,255,0.4);
       transform: scale(0.95);
     }
@@ -104,7 +158,13 @@
 </head>
 <body>
 
-  <div class="counter" id="counter">1 / 20</div>
+  <div class="top-bar">
+    <div class="counter" id="counter">1 / 20</div>
+    <div class="score">
+      <span class="score-correct">Correct: <span id="score-correct">0</span></span>
+      <span class="score-wrong">Wrong: <span id="score-wrong">0</span></span>
+    </div>
+  </div>
 
   <div class="card" id="card" onclick="speak()">
     <div class="emoji" id="emoji"></div>
@@ -113,8 +173,14 @@
   </div>
 
   <nav class="nav">
-    <button onclick="go(-1)">&#8592; Prev</button>
-    <button onclick="go(1)">Next &#8594;</button>
+    <div class="score-buttons">
+      <button class="btn-wrong"   onclick="score('wrong')">&#10007; Wrong</button>
+      <button class="btn-correct" onclick="score('correct')">&#10003; Correct</button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-nav" onclick="go(-1)">&#8592; Prev</button>
+      <button class="btn-nav" onclick="go(1)">Next &#8594;</button>
+    </div>
   </nav>
 
   <script>
@@ -155,11 +221,15 @@
     ];
 
     let current = 0;
+    let correct = 0;
+    let wrong = 0;
 
-    const emojiEl = document.getElementById('emoji');
-    const nameEl  = document.getElementById('name');
-    const counterEl = document.getElementById('counter');
-    const cardEl  = document.getElementById('card');
+    const emojiEl    = document.getElementById('emoji');
+    const nameEl     = document.getElementById('name');
+    const counterEl  = document.getElementById('counter');
+    const cardEl     = document.getElementById('card');
+    const correctEl  = document.getElementById('score-correct');
+    const wrongEl    = document.getElementById('score-wrong');
 
     function render(skipAnim) {
       const a = animals[current];
@@ -179,6 +249,17 @@
       current = (current + dir + animals.length) % animals.length;
       render();
       speak();
+    }
+
+    function score(result) {
+      if (result === 'correct') {
+        correct++;
+        correctEl.textContent = correct;
+      } else {
+        wrong++;
+        wrongEl.textContent = wrong;
+      }
+      go(1);
     }
 
     function speak() {
